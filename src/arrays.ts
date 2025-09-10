@@ -5,7 +5,9 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    const finalNums =
+        numbers.length > 0 ? [numbers[0], numbers[numbers.length - 1]] : [];
+    return finalNums;
 }
 
 /**
@@ -13,7 +15,7 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    return numbers.map((price: number): number => 3 * price);
 }
 
 /**
@@ -21,7 +23,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const newNums = numbers.map((letters: string): number =>
+        isNaN(Number(letters)) ? 0 : Number(letters),
+    );
+    return newNums;
 }
 
 /**
@@ -32,7 +37,11 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    const newAmnts = amounts.map((amount: string): number => {
+        const thisAmnt = amount.startsWith("$") ? amount.substring(1) : amount;
+        return stringsToIntegers([thisAmnt])[0];
+    });
+    return newAmnts;
 };
 
 /**
@@ -41,7 +50,18 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    //Remove all strings that end in ?
+    const nonQuestions = messages.filter(
+        (sentence: string): boolean => sentence[sentence.length - 1] !== "?",
+    );
+
+    const exclaimedMessages = nonQuestions.map((sentence: string): string =>
+        sentence[sentence.length - 1] === "!" ?
+            sentence.toUpperCase()
+        :   sentence,
+    );
+
+    return exclaimedMessages;
 };
 
 /**
@@ -49,7 +69,10 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    const smallWords = words.filter(
+        (sentence: string): boolean => sentence.length < 4,
+    );
+    return smallWords.length;
 }
 
 /**
@@ -58,7 +81,11 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    const containsAllRGB = colors.every(
+        (color: string): boolean =>
+            color === "red" || color === "green" || color === "blue",
+    );
+    return containsAllRGB;
 }
 
 /**
@@ -69,7 +96,23 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    }
+    const sum = addends.reduce(
+        (curTot: number, curNum: number) => curTot + curNum,
+        0,
+    );
+    const mathEquation =
+        sum +
+        "=" +
+        addends
+            .map((num: number, idx: number): string =>
+                idx > 0 ? "+" + num.toString() : num.toString(),
+            )
+            .join("");
+
+    return mathEquation;
 }
 
 /**
@@ -82,5 +125,26 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    //Not Working Fully
+
+    const firstNeg = values.findIndex((value: number): boolean => value < 0);
+
+    const newAmnts =
+        firstNeg < 0 ?
+            [
+                ...values,
+                values.reduce(
+                    (curTot: number, curNum: number): number => curTot + curNum,
+                    0,
+                ),
+            ]
+        :   [
+                ...values.slice(0, firstNeg + 1),
+                values
+                    .slice(0, firstNeg)
+                    .reduce((curTot, curNum) => curTot + curNum, 0),
+                ...values.slice(firstNeg + 1),
+            ];
+
+    return newAmnts;
 }
