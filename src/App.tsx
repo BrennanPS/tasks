@@ -17,14 +17,16 @@ function App(): React.JSX.Element {
             <header className="App-header">
                 Brennan Sieglen UD CISC275 with React Hooks and TypeScript
             </header>
+
             <hr></hr>
-            {/* <DoubleHalf></DoubleHalf> */}
+            <DoubleHalf></DoubleHalf>
+            <hr></hr>
+            <ShoveBox></ShoveBox>
             <hr></hr>
             <ChooseTeam></ChooseTeam>
             <hr></hr>
             <ColoredBox></ColoredBox>
-            <hr></hr>
-            <ShoveBox></ShoveBox>
+
             <hr></hr>
             <Counter></Counter>
             <hr />
@@ -36,8 +38,11 @@ function App(): React.JSX.Element {
             <hr />
             <TwoDice></TwoDice>
             <hr />
-
             <CycleHoliday></CycleHoliday>
+
+            {/* 
+            
+            */}
         </div>
     );
 }
