@@ -54,6 +54,8 @@ function App(): React.JSX.Element {
             <TwoDice></TwoDice>
             <hr />
             <CycleHoliday></CycleHoliday>
+            <hr />
+            <DoubleHalf></DoubleHalf>
 
             {/* 
             
